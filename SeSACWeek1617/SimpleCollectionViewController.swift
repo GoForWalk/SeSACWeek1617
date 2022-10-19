@@ -7,10 +7,12 @@
 
 import UIKit
 
-struct User {
+struct User: Hashable {
     
+    let id = UUID().uuidString
     let name: String
     let age: Int
+    
     
 }
 
@@ -22,6 +24,8 @@ class SimpleCollectionViewController: UICollectionViewController {
     var list = [
         User(name: "JACK", age: 22),
         User(name: "HUE", age: 23),
+        User(name: "JACK", age: 22),
+        User(name: "HUE", age: 23),
         User(name: "Owen", age: 30),
         User(name: "Harry", age: 18)
     ]
@@ -30,6 +34,8 @@ class SimpleCollectionViewController: UICollectionViewController {
     // cellForItemAt 함수 생성전에 이 타입에 대한 선언을 해야한다. -> 보통 별도의 property로 선언하여 만들기를 권유
     // => Register 코드와 유사한 역할
     var cellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, User>!
+    
+    var dataSource: UICollectionViewDiffableDataSource<Int, User>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,24 +74,38 @@ class SimpleCollectionViewController: UICollectionViewController {
             cell.backgroundConfiguration = backgroundConfig
             
         }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let item = list[indexPath.item]
-        
-        // CellRegistration에 대해서
-        // CellRegisteration의 Generic
-        // 1. Cell의 종류
-        // 2. item data type
-        let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            
+            let cell = collectionView.dequeueConfiguredReusableCell(using: self.cellRegistration, for: indexPath, item: itemIdentifier)
 
-        return cell
+            return cell
+            
+        })
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Int, User>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(list)
+        dataSource.apply(snapshot)
+        
     }
+    
+//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return list.count
+//    }
+    
+//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//
+//        let item = list[indexPath.item]
+//
+//        // CellRegistration에 대해서
+//        // CellRegisteration의 Generic
+//        // 1. Cell의 종류
+//        // 2. item data type
+//        let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+//
+//        return cell
+//    }
     
 }
 

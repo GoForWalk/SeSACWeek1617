@@ -14,6 +14,7 @@
 		CFD53FC528FE2D85008A7DBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFD53FC428FE2D85008A7DBC /* Assets.xcassets */; };
 		CFD53FC828FE2D85008A7DBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFD53FC628FE2D85008A7DBC /* LaunchScreen.storyboard */; };
 		CFD53FD028FE38E7008A7DBC /* SimpleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD53FCF28FE38E7008A7DBC /* SimpleCollectionViewController.swift */; };
+		CFD53FD428FF8FB2008A7DBC /* DiffableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD53FD328FF8FB2008A7DBC /* DiffableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		CFD53FC728FE2D85008A7DBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFD53FC928FE2D85008A7DBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFD53FCF28FE38E7008A7DBC /* SimpleCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCollectionViewController.swift; sourceTree = "<group>"; };
+		CFD53FD328FF8FB2008A7DBC /* DiffableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				CFD53FBD28FE2D84008A7DBC /* SceneDelegate.swift */,
 				CFD53FBF28FE2D84008A7DBC /* SimpleTableViewController.swift */,
 				CFD53FC128FE2D84008A7DBC /* Main.storyboard */,
+				CFD53FD328FF8FB2008A7DBC /* DiffableViewController.swift */,
 				CFD53FC428FE2D85008A7DBC /* Assets.xcassets */,
 				CFD53FC628FE2D85008A7DBC /* LaunchScreen.storyboard */,
 				CFD53FC928FE2D85008A7DBC /* Info.plist */,
@@ -144,6 +147,7 @@
 				CFD53FC028FE2D84008A7DBC /* SimpleTableViewController.swift in Sources */,
 				CFD53FBC28FE2D84008A7DBC /* AppDelegate.swift in Sources */,
 				CFD53FD028FE38E7008A7DBC /* SimpleCollectionViewController.swift in Sources */,
+				CFD53FD428FF8FB2008A7DBC /* DiffableViewController.swift in Sources */,
 				CFD53FBE28FE2D84008A7DBC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
