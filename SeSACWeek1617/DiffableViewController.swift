@@ -6,29 +6,40 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DiffableViewController: UIViewController {
     
+    var viewModel = DiffableViewModel()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    var list = ["아이폰", "아이패드", "에어팟", "맥북", "애플 워치"]
     
 //    private var cellRegisteration: UICollectionView.CellRegistration<UICollectionViewListCell, String>!
     
     // Int: Section
     // String: list의 값
-    private var dataSource: UICollectionViewDiffableDataSource<Int, String>!
+    private var dataSource: UICollectionViewDiffableDataSource<Int, SearchResult>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        APIService.searchPhoto(query: "apple")
         
         collectionView.delegate = self
         collectionView.collectionViewLayout = createLayout()
         configureDataSource()
         
         searchBar.delegate = self
+        
+        viewModel.photoList.bind { [weak self] photo in
+            guard let self else { return }
+            var snapshot = NSDiffableDataSourceSnapshot<Int, SearchResult>()
+            snapshot.appendSections([0])
+            snapshot.appendItems(photo.results)
+            self.dataSource.apply(snapshot)
+
+        }
     }
     
 }
@@ -44,12 +55,21 @@ extension DiffableViewController {
     
     private func configureDataSource() {
         
-        let cellRegisteration = UICollectionView.CellRegistration<UICollectionViewListCell, String>(handler: { cell, indexPath, itemIdentifier in
+        let cellRegisteration = UICollectionView.CellRegistration<UICollectionViewListCell, SearchResult>(handler: { cell, indexPath, itemIdentifier in
             
             var content = UIListContentConfiguration.valueCell()
-            content.text = itemIdentifier
-            content.secondaryText = "\(itemIdentifier.count)"
-            cell.contentConfiguration = content
+            content.text = "\(itemIdentifier.likes)"
+            
+            DispatchQueue.global(qos: .default).async {
+                guard let url = URL(string: itemIdentifier.urls.thumb) else { return }
+                let data = try? Data(contentsOf: url)
+                
+                DispatchQueue.main.async {
+                    content.image = UIImage(data: data!)
+                    cell.contentConfiguration = content
+                }
+            }
+            
             
             var background = UIBackgroundConfiguration.listPlainCell()
             background.strokeWidth = 2
@@ -68,10 +88,6 @@ extension DiffableViewController {
         })
 //
 //        // Inital
-        var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(list)
-        dataSource.apply(snapshot)
     }
     
 }
@@ -79,9 +95,7 @@ extension DiffableViewController {
 extension DiffableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        var snapshot = dataSource.snapshot()
-        snapshot.appendItems([searchBar.text!])
-        dataSource.apply(snapshot, animatingDifferences: true)
+        viewModel.reqesutSearchPhoto(query: searchBar.text!)
     }
 }
 
@@ -89,14 +103,14 @@ extension DiffableViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
-        
-        let alert = UIAlertController(title: item, message: "클릭!!", preferredStyle: .alert)
-        
-        let ok = UIAlertAction(title: "확인", style: .cancel)
-        
-        alert.addAction(ok)
-        present(alert, animated: true)
+//        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
+//
+//        let alert = UIAlertController(title: item, message: "클릭!!", preferredStyle: .alert)
+//
+//        let ok = UIAlertAction(title: "확인", style: .cancel)
+//
+//        alert.addAction(ok)
+//        present(alert, animated: true)
         
     }
     
