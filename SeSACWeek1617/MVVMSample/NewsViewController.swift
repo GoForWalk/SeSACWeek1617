@@ -7,8 +7,13 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 class NewsViewController: UIViewController {
 
+    let disposeBag = DisposeBag()
+    
     var viewModel = NewsViewModel()
     var datasource: UICollectionViewDiffableDataSource<Int, News.NewsItem>!
     
@@ -23,37 +28,36 @@ class NewsViewController: UIViewController {
         configureHierachy()
         configureDataSource()
         
-        viewModel.newsSample.bind { [weak self] item in
-            guard let self else { return }
-            var snapshot = NSDiffableDataSourceSnapshot<Int, News.NewsItem>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(item)
-            self.datasource.apply(snapshot, animatingDifferences: false)
-        }
+        viewModel.newsSample
+            .withUnretained(self)
+            .subscribe { vc, item in
+                var snapshot = NSDiffableDataSourceSnapshot<Int, News.NewsItem>()
+                snapshot.appendSections([0])
+                snapshot.appendItems(item)
+                vc.datasource.apply(snapshot, animatingDifferences: false)
+            }
+            .disposed(by: disposeBag)
         
-        viewModel.pageNumber.bind { value in
-            self.numberTextField.text = value
-        }
+        viewModel.pageNumber
+            .bind(to: numberTextField.rx.value)
+            .disposed(by: disposeBag)
         
-        numberTextField.addTarget(self, action: #selector(numberTextFieldChanged), for: .editingChanged)
-        resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
-        loadButton.addTarget(self, action: #selector(loadButtonTapped), for: .touchUpInside)
+        resetButton.rx.tap
+            .withUnretained(self)
+            .subscribe { vc, _ in
+                vc.viewModel.resetSample()
+            }
+            .disposed(by: disposeBag)
+        
+        loadButton.rx.tap
+            .withUnretained(self)
+            .subscribe { vc, _ in
+                vc.viewModel.loadSample()
+            }
+            .disposed(by: disposeBag)
+        
     }
     
-
-    @objc func numberTextFieldChanged(_ sender: UITextField) {
-        guard let text = sender.text else { return }
-        viewModel.changePageNumberFormat(text: text)
-    }
-    
-    @objc func resetButtonTapped() {
-        viewModel.resetSample()
-    }
-    
-    @objc func loadButtonTapped() {
-        viewModel.loadSample()
-    }
-
 }
 
 extension NewsViewController {
@@ -83,7 +87,7 @@ extension NewsViewController {
         
     }
     
-    func createLayout() -> UICollectionViewLayout {
+    private func createLayout() -> UICollectionViewLayout {
         let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         
