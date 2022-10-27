@@ -6,11 +6,15 @@
 //
 
 import UIKit
-import Kingfisher
 
-class DiffableViewController: UIViewController {
+import RxSwift
+import RxCocoa
+
+private class DiffableViewController: UIViewController {
     
     var viewModel = DiffableViewModel()
+    
+    let disposeBag = DisposeBag()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -23,23 +27,50 @@ class DiffableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindData()
         
-//        APIService.searchPhoto(query: "apple")
-        
-        collectionView.delegate = self
+//        collectionView.delegate = self
         collectionView.collectionViewLayout = createLayout()
         configureDataSource()
         
-        searchBar.delegate = self
         
-        viewModel.photoList.bind { [weak self] photo in
-            guard let self else { return }
-            var snapshot = NSDiffableDataSourceSnapshot<Int, SearchResult>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(photo.results)
-            self.dataSource.apply(snapshot)
-
-        }
+//        viewModel.photoList.bind { [weak self] photo in
+//            guard let self else { return }
+//            var snapshot = NSDiffableDataSourceSnapshot<Int, SearchResult>()
+//            snapshot.appendSections([0])
+//            snapshot.appendItems(photo.results)
+//            self.dataSource.apply(snapshot)
+//
+//        }
+    }
+    
+    func bindData() {
+        
+        viewModel.photoList
+            .withUnretained(self) // 구독하기 직전에
+            .subscribe { vc, value in
+                var snapshot = NSDiffableDataSourceSnapshot<Int, SearchResult>()
+                snapshot.appendSections([0])
+                snapshot.appendItems(value.results)
+                vc.dataSource.apply(snapshot)
+            } onError: { error in
+                print("=====error: \(error)")
+            } onCompleted: {
+                print("completed")
+            } onDisposed: {
+                print("onDisposed")
+            }
+            .disposed(by: disposeBag)
+        
+        searchBar.rx.text.orEmpty
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .withUnretained(self)
+            .subscribe { vc, value in
+                vc.viewModel.reqesutSearchPhoto(query: value)
+            }
+            .disposed(by: disposeBag)
+        
     }
     
 }
@@ -70,7 +101,6 @@ extension DiffableViewController {
                 }
             }
             
-            
             var background = UIBackgroundConfiguration.listPlainCell()
             background.strokeWidth = 2
             background.strokeColor = .blue
@@ -86,23 +116,22 @@ extension DiffableViewController {
             return cell
 
         })
+
+    }
+    
+}
+
+//extension DiffableViewController: UISearchBarDelegate {
 //
-//        // Inital
-    }
-    
-}
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        viewModel.reqesutSearchPhoto(query: searchBar.text!)
+//    }
+//}
 
-extension DiffableViewController: UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.reqesutSearchPhoto(query: searchBar.text!)
-    }
-}
-
-extension DiffableViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+//extension DiffableViewController: UICollectionViewDelegate {
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//
 //        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
 //
 //        let alert = UIAlertController(title: item, message: "클릭!!", preferredStyle: .alert)
@@ -111,7 +140,7 @@ extension DiffableViewController: UICollectionViewDelegate {
 //
 //        alert.addAction(ok)
 //        present(alert, animated: true)
-        
-    }
-    
-}
+//
+//    }
+//
+//}

@@ -10,6 +10,7 @@
 		CF00446F290622AB00BAD156 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CF00446E290622AB00BAD156 /* RxCocoa */; };
 		CF004471290622AB00BAD156 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CF004470290622AB00BAD156 /* RxSwift */; };
 		CF004475290625B000BAD156 /* RxCocoaExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF004474290625B000BAD156 /* RxCocoaExampleViewController.swift */; };
+		CF49BE7F2908CBAC00FFF322 /* SubScribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49BE7E2908CBAC00FFF322 /* SubScribeViewController.swift */; };
 		CF5429A52900CF83000A93DE /* CObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5429A42900CF83000A93DE /* CObservable.swift */; };
 		CF5429A72900D13D000A93DE /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5429A62900D13D000A93DE /* NewsViewController.swift */; };
 		CF5429A92900D246000A93DE /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5429A82900D246000A93DE /* NewsViewModel.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		CF004474290625B000BAD156 /* RxCocoaExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCocoaExampleViewController.swift; sourceTree = "<group>"; };
+		CF49BE7E2908CBAC00FFF322 /* SubScribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubScribeViewController.swift; sourceTree = "<group>"; };
 		CF5429A42900CF83000A93DE /* CObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CObservable.swift; sourceTree = "<group>"; };
 		CF5429A62900D13D000A93DE /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		CF5429A82900D246000A93DE /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				CF004474290625B000BAD156 /* RxCocoaExampleViewController.swift */,
 				CF806EF029077A4B009D93D0 /* SubjectViewController.swift */,
 				CF806EF2290788AA009D93D0 /* SubjectViewModel.swift */,
+				CF49BE7E2908CBAC00FFF322 /* SubScribeViewController.swift */,
 			);
 			path = RxSample;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				CF806EF129077A4B009D93D0 /* SubjectViewController.swift in Sources */,
 				CF59BFFD2900EE4500A9D559 /* APIKey.swift in Sources */,
 				CF59BFFA2900EE0000A9D559 /* APIService.swift in Sources */,
+				CF49BE7F2908CBAC00FFF322 /* SubScribeViewController.swift in Sources */,
 				CFD53FD428FF8FB2008A7DBC /* DiffableViewController.swift in Sources */,
 				CFD53FBE28FE2D84008A7DBC /* SceneDelegate.swift in Sources */,
 				CF5429A92900D246000A93DE /* NewsViewModel.swift in Sources */,

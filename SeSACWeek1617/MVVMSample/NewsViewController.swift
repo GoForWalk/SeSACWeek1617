@@ -28,9 +28,19 @@ class NewsViewController: UIViewController {
         configureHierachy()
         configureDataSource()
         
+        bindData()
+    }
+    
+}
+
+// MARK: - BindData
+extension NewsViewController {
+    
+    func bindData() {
+        
         viewModel.newsSample
             .withUnretained(self)
-            .subscribe { vc, item in
+            .bind { vc, item in
                 var snapshot = NSDiffableDataSourceSnapshot<Int, News.NewsItem>()
                 snapshot.appendSections([0])
                 snapshot.appendItems(item)
@@ -44,20 +54,33 @@ class NewsViewController: UIViewController {
         
         resetButton.rx.tap
             .withUnretained(self)
-            .subscribe { vc, _ in
+            .bind { vc, _ in
                 vc.viewModel.resetSample()
             }
             .disposed(by: disposeBag)
         
         loadButton.rx.tap
             .withUnretained(self)
-            .subscribe { vc, _ in
+            .bind { vc, _ in
                 vc.viewModel.loadSample()
             }
             .disposed(by: disposeBag)
         
+        viewModel.pageNumber
+            .withUnretained(self)
+            .bind { vc , value in
+                vc.numberTextField.text = value
+            }
+            .disposed(by: disposeBag)
+        
+        numberTextField.rx.text
+            .withUnretained(self)
+            .bind { vc, value in
+                guard let value else { return }
+                vc.viewModel.changePageNumberFormat(text: value)
+            }
+            .disposed(by: disposeBag)
     }
-    
 }
 
 extension NewsViewController {
