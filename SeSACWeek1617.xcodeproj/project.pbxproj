@@ -23,6 +23,8 @@
 		CF59C0072900F47D00A9D559 /* DiffableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF59C0062900F47D00A9D559 /* DiffableViewModel.swift */; };
 		CF806EF129077A4B009D93D0 /* SubjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF806EF029077A4B009D93D0 /* SubjectViewController.swift */; };
 		CF806EF3290788AA009D93D0 /* SubjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF806EF2290788AA009D93D0 /* SubjectViewModel.swift */; };
+		CFD2ADE3290A07A7005B4F59 /* ValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD2ADE2290A07A7005B4F59 /* ValidationViewController.swift */; };
+		CFD2ADE6290A22C9005B4F59 /* ValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD2ADE5290A22C9005B4F59 /* ValidationViewModel.swift */; };
 		CFD53FBC28FE2D84008A7DBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD53FBB28FE2D84008A7DBC /* AppDelegate.swift */; };
 		CFD53FBE28FE2D84008A7DBC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD53FBD28FE2D84008A7DBC /* SceneDelegate.swift */; };
 		CFD53FC028FE2D84008A7DBC /* SimpleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD53FBF28FE2D84008A7DBC /* SimpleTableViewController.swift */; };
@@ -46,6 +48,8 @@
 		CF59C0062900F47D00A9D559 /* DiffableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableViewModel.swift; sourceTree = "<group>"; };
 		CF806EF029077A4B009D93D0 /* SubjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectViewController.swift; sourceTree = "<group>"; };
 		CF806EF2290788AA009D93D0 /* SubjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectViewModel.swift; sourceTree = "<group>"; };
+		CFD2ADE2290A07A7005B4F59 /* ValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationViewController.swift; sourceTree = "<group>"; };
+		CFD2ADE5290A22C9005B4F59 /* ValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationViewModel.swift; sourceTree = "<group>"; };
 		CFD53FB828FE2D84008A7DBC /* SeSACWeek1617.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACWeek1617.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD53FBB28FE2D84008A7DBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFD53FBD28FE2D84008A7DBC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,10 +89,13 @@
 		CF0044732906259900BAD156 /* RxSample */ = {
 			isa = PBXGroup;
 			children = (
+				CFD2ADE4290A22BB005B4F59 /* New Group */,
 				CF004474290625B000BAD156 /* RxCocoaExampleViewController.swift */,
 				CF806EF029077A4B009D93D0 /* SubjectViewController.swift */,
 				CF806EF2290788AA009D93D0 /* SubjectViewModel.swift */,
 				CF49BE7E2908CBAC00FFF322 /* SubScribeViewController.swift */,
+				CFD2ADE2290A07A7005B4F59 /* ValidationViewController.swift */,
+				CFD2ADE5290A22C9005B4F59 /* ValidationViewModel.swift */,
 			);
 			path = RxSample;
 			sourceTree = "<group>";
@@ -110,6 +117,13 @@
 				CF59BFFC2900EE4500A9D559 /* APIKey.swift */,
 			);
 			path = APIKey;
+			sourceTree = "<group>";
+		};
+		CFD2ADE4290A22BB005B4F59 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		CFD53FAF28FE2D84008A7DBC = {
@@ -232,7 +246,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF5429A52900CF83000A93DE /* CObservable.swift in Sources */,
+				CFD2ADE3290A07A7005B4F59 /* ValidationViewController.swift in Sources */,
 				CFD53FC028FE2D84008A7DBC /* SimpleTableViewController.swift in Sources */,
+				CFD2ADE6290A22C9005B4F59 /* ValidationViewModel.swift in Sources */,
 				CFD53FBC28FE2D84008A7DBC /* AppDelegate.swift in Sources */,
 				CF5429AB2900D780000A93DE /* News.swift in Sources */,
 				CF59BFFF2900EF8400A9D559 /* SearchPhoto.swift in Sources */,
